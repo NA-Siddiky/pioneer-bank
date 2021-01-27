@@ -16,7 +16,7 @@
         <h1 class="text-center">Welcome to Pionner-Bank</h1>
         <div class="submit-area">
             <h4>login</h4>
-            <input type="text" class="form-control" placeholder="Email Address">
+            <input type="email" class="form-control" placeholder="Email Address">
             <br>
             <input type="password" class="form-control" placeholder="Enter Password">
             <br>
@@ -79,21 +79,27 @@
             // const depositAmount = document.getElementById("depositAmount").value;
             // const depositAmountNumber = parseFloat(depositAmount);
             const depositAmountNumber = getInputNumber("depositAmount");
+            if (depositAmountNumber === -1) {
+                window.alert("Invalid Input")
+            }
+            else {
+                updateAmountStatus("currentDeposit", depositAmountNumber);
+                updateAmountStatus("currentBalance", depositAmountNumber);
+            }
 
             // const currentDeposit = document.getElementById("currentDeposit").innerText;
             // const currentDepositNumber = parseFloat(currentDeposit);
             // const totalDeposit = depositAmountNumber + currentDepositNumber;
             // document.getElementById("currentDeposit").innerText = totalDeposit;
-            updateAmountStatus("currentDeposit", depositAmountNumber);
+            // updateAmountStatus("currentDeposit", depositAmountNumber);
 
             // const currentBalance = document.getElementById("currentBalance").innerText;
             // const currentBalanceNumber = parseFloat(currentBalance);
             // const totalBalance = depositAmountNumber + currentBalanceNumber;
             // document.getElementById("currentBalance").innerText = totalBalance;
-            updateAmountStatus("currentBalance", depositAmountNumber);
-
+            // updateAmountStatus("currentBalance", depositAmountNumber);
+            
             document.getElementById("depositAmount").value = " ";
-
         })
         //withdraw button event handler /
         const withdrawBtn = document.getElementById("button-withdraw");
@@ -101,16 +107,25 @@
             // const withdrawAmount = document.getElementById("withdrawAmount").value;
             // const withdrawAmountNumber = parseFloat(withdrawAmount);
             const withdrawAmountNumber = getInputNumber("withdrawAmount");
-            updateAmountStatus("currentWithdraw", withdrawAmountNumber);
-            updateAmountStatus("currentBalance", -1 * withdrawAmountNumber);
+            if (withdrawAmountNumber === -1) {
+                window.alert("Invalid Input")
+            }
+            else {
+                updateAmountStatus("currentWithdraw", withdrawAmountNumber);
+                updateAmountStatus("currentBalance", -1 * withdrawAmountNumber);
+            }
             document.getElementById("withdrawAmount").value = " ";
-
         })
 
         function getInputNumber(id) {
             const amount = document.getElementById(id).value;
             const amountNumber = parseFloat(amount);
-            return amountNumber;
+            if (amountNumber > 0) {
+                return amountNumber;
+            }
+            else {
+                return -1
+            }
         }
 
         function updateAmountStatus(id, depositAmountNumber) {
@@ -119,6 +134,7 @@
             const total = depositAmountNumber + currentNumber;
             document.getElementById(id).innerText = total;
         }
+
     </script>
 
 </body>
